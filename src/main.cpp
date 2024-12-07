@@ -222,3 +222,54 @@ void printBattlePage(const Pokemon& p1, const Pokemon& p2,
     // Footer of the battle page
     cout << "+------------------------------+------------------------------+\n";
 }
+
+// Function to execute one turn of an attack between two Pokémon
+pair<string, string> performTurn(Pokemon& attacker, Pokemon& defender, int skillIndex) {
+    // Reference to the selected skill of the attacker
+    Skill& chosenSkill = attacker.skills[skillIndex];
+
+    // Precompute the effectiveness message (even if the skill fails, this message is predetermined)
+    int effectiveness = calculateEffectiveness(chosenSkill.type, defender.type);
+    string effectMsg;
+    if (effectiveness > 0) {
+        effectMsg = "It was super effective."; // Message for super effective attack
+    } else if (effectiveness < 0) {
+        effectMsg = "It was not very effective."; // Message for not very effective attack
+    } else {
+        effectMsg = "It was effective."; // Message for normally effective attack
+    }
+
+    // If the skill has no remaining uses
+    if (chosenSkill.remainingUses == 0) {
+        // Print failure message to the console
+        cout << attacker.name << " failed to perform " << chosenSkill.name << "." << endl;
+        cout << endl;
+
+        // Return the skill name and the predetermined effect message
+        return make_pair(chosenSkill.name, effectMsg);
+    }
+
+    // If the skill is usable, perform the attack
+    int totalDamage = chosenSkill.damage + effectiveness; // Calculate total damage (base damage + effectiveness)
+    chosenSkill.remainingUses--; // Decrease the remaining uses of the skill
+    defender.currentHP -= totalDamage; // Subtract damage from the defender's HP
+    if (defender.currentHP < 0) defender.currentHP = 0; // Ensure HP does not drop below 0
+
+    // Print attack success message
+    cout << attacker.name << " used " << chosenSkill.name << ".\n";
+
+    // Print the effectiveness message to the console
+    if (effectiveness > 0) {
+        cout << "It was super effective." << endl;
+        cout << endl;
+    } else if (effectiveness < 0) {
+        cout << "It was not very effective." << endl;
+        cout << endl;
+    } else {
+        cout << "It was effective." << endl;
+        cout << endl;
+    }
+
+    // Return the skill name and the effectiveness message
+    return make_pair(chosenSkill.name, effectMsg);
+}
