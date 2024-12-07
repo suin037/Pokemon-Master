@@ -51,3 +51,60 @@ struct Pokemon {
         // Initializes the Pokémon's name, type, maximum HP, current HP, 
         // and the list of skills. Sets current HP equal to max HP by default.
 };
+
+// Function to create all Pokemons with their predefined skills
+vector<Pokemon> createPokemons() {
+    vector<Pokemon> pokemons; // A list to store all the created Pokémon
+
+    // Pikachu
+    vector<Skill> pikachuSkills = {
+        Skill("Tackle", Normal, 4, 5),         // A basic Normal-type move
+        Skill("Grass Knot", Grass, 8, 5),     // A Grass-type move
+        Skill("Thunderbolt", Electric, 10, 5),// A powerful Electric-type move
+        Skill("Megabolt", Electric, 15, 3)    // A high-damage Electric-type move with limited uses
+    };
+    pokemons.push_back(Pokemon("Pikachu", Electric, 35, pikachuSkills));
+    // Adds Pikachu with its skills and stats to the Pokémon list
+
+    // Dratini
+    vector<Skill> dratiniSkills = {
+        Skill("Wrap", Normal, 4, 10),          // A Normal-type move with multiple uses
+        Skill("Aqua Tail", Water, 3, 5),      // A basic Water-type move
+        Skill("Water Pulse", Water, 13, 2),   // A powerful Water-type move
+        Skill("Hyper Beam", Normal, 20, 1)    // A very strong Normal-type move with a single use
+    };
+    pokemons.push_back(Pokemon("Dratini", Water, 41, dratiniSkills));
+    // Adds Dratini with its skills and stats to the Pokémon list
+
+    // Eevee
+    vector<Skill> eeveeSkills = {
+        Skill("Tackle", Normal, 4, 5),         // A common Normal-type move
+        Skill("Sand Attack", Ground, 8, 3),   // A Ground-type move with moderate power
+        Skill("Bite", Normal, 12, 3),         // A strong Normal-type move
+        Skill("Rain Dance", Water, 15, 1)     // A single-use Water-type move
+    };
+    pokemons.push_back(Pokemon("Eevee", Normal, 55, eeveeSkills));
+    // Adds Eevee with its skills and stats to the Pokémon list
+
+    // Charmander
+    vector<Skill> charmanderSkills = {
+        Skill("Tackle", Normal, 4, 5),         // A basic Normal-type move
+        Skill("Flamethrower", Fire, 11, 5),   // A powerful Fire-type move
+        Skill("Dig", Ground, 7, 5),           // A Ground-type move with balanced power
+        Skill("Heat Wave", Fire, 14, 5)       // A high-damage Fire-type move
+    };
+    pokemons.push_back(Pokemon("Charmander", Fire, 39, charmanderSkills));
+    // Adds Charmander with its skills and stats to the Pokémon list
+
+    // Palkia
+    vector<Skill> palkiaSkills = {
+        Skill("Hydro Pump", Water, 12, 10),    // A strong Water-type move
+        Skill("Earth Power", Ground, 15, 10), // A powerful Ground-type move
+        Skill("Surf", Water, 13, 10),         // A consistent Water-type move
+        Skill("Spatial Rend", Normal, 30, 10) // A very high-damage Normal-type move
+    };
+    pokemons.push_back(Pokemon("Palkia", Water, 90, palkiaSkills));
+    // Adds Palkia with its skills and stats to the Pokémon list
+
+    return pokemons; // Returns the list of created Pokémon
+}
