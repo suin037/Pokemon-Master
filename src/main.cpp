@@ -138,3 +138,31 @@ int calculateEffectiveness(Type skillType, Type opponentType) {
     // Cases where the skill has normal effectiveness
     return 0;  // Normal effectiveness: return zero for balanced matchups
 }
+
+// Helper function to resize two strings to a fixed width and align them with a separator
+string resizeToFixedWidth(const string& leftStr, const string& rightStr, char sep = '|', size_t width = 63) {
+    size_t sectionWidth = 29; // Each section (left and right) is fixed to 29 characters
+    string left = leftStr;    // Copy of the left string
+    string right = rightStr;  // Copy of the right string
+
+    // Adjust the left string to the fixed width
+    if (left.size() < sectionWidth) {
+        // If the string is shorter than the section width, pad with spaces
+        left += string(sectionWidth - left.size(), ' ');
+    } else {
+        // If the string exceeds the section width, truncate it
+        left = left.substr(0, sectionWidth);
+    }
+
+    // Adjust the right string to the fixed width
+    if (right.size() < sectionWidth) {
+        // If the string is shorter than the section width, pad with spaces
+        right += string(sectionWidth - right.size(), ' ');
+    } else {
+        // If the string exceeds the section width, truncate it
+        right = right.substr(0, sectionWidth);
+    }
+
+    // Combine the adjusted strings with the separator and spaces
+    return left + " " + sep + " " + right;
+}
