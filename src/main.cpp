@@ -39,8 +39,8 @@ struct Skill {
 
 // Struct for Pokemon
 struct Pokemon {
-    string name;         // The name of the Pokémon (e.g., "Pikachu")
-    Type type;           // The type of the Pokémon (e.g., Electric, Water)
+    string name;         // The name of the Pokémon 
+    Type type;           // The type of the Pokémon 
     int maxHP;           // The maximum health points (HP) of the Pokémon
     int currentHP;       // The current health points (HP) of the Pokémon
     vector<Skill> skills; // A list of skills the Pokémon can use
