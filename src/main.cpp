@@ -166,3 +166,59 @@ string resizeToFixedWidth(const string& leftStr, const string& rightStr, char se
     // Combine the adjusted strings with the separator and spaces
     return left + " " + sep + " " + right;
 }
+
+// Function to print the battle page in a formatted table style
+void printBattlePage(const Pokemon& p1, const Pokemon& p2,
+                     const string& latestSkill1, const string& latestSkill2,
+                     const string& latestSkill1Effect, const string& latestSkill2Effect,
+                     int currentTurn) {
+    // Header of the battle page
+    cout << "+-------------------------------------------------------------+\n";
+    cout << "| 2024-02 Object-Oriented Programming Pokemon Master          |\n";
+    cout << "+------------------------------+------------------------------+\n";
+
+    // Display Pokémon names with indication of the current turn
+    string p1Name = (currentTurn == 1) ? p1.name + " (*)" : p1.name; // Highlight p1 if it's their turn
+    string p2Name = (currentTurn == 2) ? p2.name + " (*)" : p2.name; // Highlight p2 if it's their turn
+    cout << "|" << resizeToFixedWidth(" " + p1Name, p2Name) << "|\n";
+
+    // Display Pokémon types
+    cout << "|" << resizeToFixedWidth(" Type: " + typeToString(p1.type), "Type: " + typeToString(p2.type)) << "|\n";
+
+    // Display Pokémon HP (current and max)
+    cout << "|" << resizeToFixedWidth(" HP: " + to_string(p1.currentHP), "HP: " + to_string(p2.currentHP)) << "|\n";
+
+    cout << "+------------------------------+------------------------------+\n";
+
+    // Display the latest skill used by each Pokémon
+    cout << "|" << resizeToFixedWidth(" Latest Skill: " + latestSkill1, "Latest Skill: " + latestSkill2) << "|\n";
+
+    // Display the effects of the latest skills
+    cout << "|" << resizeToFixedWidth(" " + latestSkill1Effect, latestSkill2Effect) << "|\n";
+
+    cout << "+------------------------------+------------------------------+\n";
+
+    // Display each Pokémon's skills
+    for (int i = 0; i < 4; ++i) { // Loop through the four skills of each Pokémon
+        // Display skill name
+        cout << "|" << resizeToFixedWidth(" (" + to_string(i) + ") " + p1.skills[i].name, 
+                                           "(" + to_string(i) + ") " + p2.skills[i].name) << "|\n";
+
+        // Display skill type
+        cout << "|" << resizeToFixedWidth("     - Type: " + typeToString(p1.skills[i].type), 
+                                           "    - Type: " + typeToString(p2.skills[i].type)) << "|\n";
+
+        // Display skill damage
+        cout << "|" << resizeToFixedWidth("     - Damage: " + to_string(p1.skills[i].damage), 
+                                           "    - Damage: " + to_string(p2.skills[i].damage)) << "|\n";
+
+        // Display remaining skill uses
+        cout << "|" << resizeToFixedWidth("     - Count: " + to_string(p1.skills[i].remainingUses) + 
+                                           "(" + to_string(p1.skills[i].maxTry) + ")", 
+                                           "    - Count: " + to_string(p2.skills[i].remainingUses) + 
+                                           "(" + to_string(p2.skills[i].maxTry) + ")") << "|\n";
+    }
+
+    // Footer of the battle page
+    cout << "+------------------------------+------------------------------+\n";
+}
