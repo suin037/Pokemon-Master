@@ -273,3 +273,77 @@ pair<string, string> performTurn(Pokemon& attacker, Pokemon& defender, int skill
     // Return the skill name and the effectiveness message
     return make_pair(chosenSkill.name, effectMsg);
 }
+
+int main() {
+    // Create Pokemons and their skills
+    vector<Pokemon> pokemons = createPokemons(); // Initialize a list of predefined Pokémon
+
+    // Select two distinct Pokémons for the battle
+    int firstPokemonIndex = -1, secondPokemonIndex = -1;
+
+    // Select the first Pokémon
+    while (true) {
+        cout << "Choose a Pokemon(0~4): ";
+        cin >> firstPokemonIndex;
+        if (firstPokemonIndex >= 0 && firstPokemonIndex <= 4) { // Validate selection
+            break; // Exit loop if valid
+        }
+    }
+
+    // Select the second Pokémon
+    while (true) {
+        cout << "Choose a Pokemon(0~4): ";
+        cin >> secondPokemonIndex;
+        if (secondPokemonIndex >= 0 && secondPokemonIndex <= 4) { // Validate selection
+            if (secondPokemonIndex == firstPokemonIndex) { // Ensure the two Pokémon are distinct
+                cout << "You have to choose Pokemons different from each other." << endl;
+                exit(0); // Terminate program if invalid selection
+            } else {
+                break; // Exit loop if valid and distinct
+            }
+        }
+    }
+
+    // References to the selected Pokémon
+    Pokemon& p1 = pokemons[firstPokemonIndex]; // First selected Pokémon
+    Pokemon& p2 = pokemons[secondPokemonIndex]; // Second selected Pokémon
+
+    // Variables to store the latest skill used and its effect
+    string latestSkill1 = "-", latestSkill2 = "-";
+    string latestSkill1Effect = "", latestSkill2Effect = "";
+
+    // Start the battle loop
+    while (p1.currentHP > 0 && p2.currentHP > 0) {
+        // p1's turn
+        printBattlePage(p1, p2, latestSkill1, latestSkill2, latestSkill1Effect, latestSkill2Effect, 1); // Display battle page
+        cout << "Choose a skill (0~3): ";
+        int p1SkillIndex; // Variable to store the skill index chosen by p1
+        cin >> p1SkillIndex;
+        pair<string, string> p1Result = performTurn(p1, p2, p1SkillIndex); // Execute p1's attack
+        latestSkill1 = p1Result.first; // Update the latest skill used by p1
+        latestSkill1Effect = p1Result.second; // Update the effect of the skill
+
+        if (p2.currentHP == 0) { // Check if p2 is defeated
+            cout << "===============================================================" << endl;
+            cout << "Match Result: " << p1.name << " defeats " << p2.name << endl;
+            break; // End the battle
+        }
+
+        // p2's turn
+        printBattlePage(p1, p2, latestSkill1, latestSkill2, latestSkill1Effect, latestSkill2Effect, 2); // Display battle page
+        cout << "Choose a skill (0~3): ";
+        int p2SkillIndex; // Variable to store the skill index chosen by p2
+        cin >> p2SkillIndex;
+        pair<string, string> p2Result = performTurn(p2, p1, p2SkillIndex); // Execute p2's attack
+        latestSkill2 = p2Result.first; // Update the latest skill used by p2
+        latestSkill2Effect = p2Result.second; // Update the effect of the skill
+
+        if (p1.currentHP == 0) { // Check if p1 is defeated
+            cout << "===============================================================" << endl;
+            cout << "Match Result: " << p2.name << " defeats " << p1.name << endl;
+            break; // End the battle
+        }
+    }
+
+    
+}
