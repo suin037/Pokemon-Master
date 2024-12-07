@@ -108,3 +108,33 @@ vector<Pokemon> createPokemons() {
 
     return pokemons; // Returns the list of created Pokémon
 }
+
+// Function to calculate the effectiveness of a skill based on the types of the skill and the opponent
+int calculateEffectiveness(Type skillType, Type opponentType) {
+    // Cases where the skill is super effective against the opponent's type
+    if ((skillType == Ground && opponentType == Electric) || // Ground is super effective against Electric
+        (skillType == Ground && opponentType == Fire) ||     // Ground is super effective against Fire
+        (skillType == Electric && opponentType == Water) ||  // Electric is super effective against Water
+        (skillType == Water && opponentType == Fire) ||      // Water is super effective against Fire
+        (skillType == Water && opponentType == Ground) ||    // Water is super effective against Ground
+        (skillType == Fire && opponentType == Grass) ||      // Fire is super effective against Grass
+        (skillType == Grass && opponentType == Water)) {     // Grass is super effective against Water
+        return 5;  // Super effective: return a positive value to indicate high effectiveness
+    }
+    // Cases where the skill is not very effective against the opponent's type
+    else if ((skillType == Electric && opponentType == Electric) ||  // Electric vs Electric is not very effective
+             (skillType == Fire && opponentType == Fire) ||          // Fire vs Fire is not very effective
+             (skillType == Water && opponentType == Water) ||        // Water vs Water is not very effective
+             (skillType == Water && opponentType == Grass) ||        // Water vs Grass is not very effective
+             (skillType == Grass && opponentType == Fire) ||         // Grass vs Fire is not very effective
+             (skillType == Fire && opponentType == Water) ||         // Fire vs Water is not very effective
+             (skillType == Electric && opponentType == Ground) ||    // Electric vs Ground is not very effective
+             (skillType == Electric && opponentType == Grass) ||     // Electric vs Grass is not very effective
+             (skillType == Ground && opponentType == Grass) ||       // Ground vs Grass is not very effective
+             (skillType == Grass && opponentType == Ground) ||       // Grass vs Ground is not very effective
+             (skillType == Grass && opponentType == Grass)) {        // Grass vs Grass is not very effective
+        return -3; // Not very effective: return a negative value to indicate low effectiveness
+    }
+    // Cases where the skill has normal effectiveness
+    return 0;  // Normal effectiveness: return zero for balanced matchups
+}
